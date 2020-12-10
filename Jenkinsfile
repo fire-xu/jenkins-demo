@@ -19,15 +19,6 @@ node('haimaxy-jnlp') {
 
     stage('Build') {
         echo "3.Build Docker Image Stage"
-         sh'''
-        rm -rf Dockerfile
-cat >> Dockerfile <<EOF
-FROM java:8 
-VOLUME /tmp 
-ADD points-manager/target/points-manager-0.0.1-exec.jar points-manager.jar
-ENTRYPOINT ["java","-jar","/points-manager.jar"]
-EOF
-    '''
     sh "ls -l"
     sh "docker build -t firexuxiaoman/jenkins-demo:${build_tag} ."
     }
