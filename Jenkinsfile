@@ -7,11 +7,14 @@ pipeline {
             steps {
                 echo "1.Git Clone Code"
 				checkout scm
-                script {
+            script {
             build_tag = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+			if (env.BRANCH_NAME != 'main') {
+                build_tag = "${env.BRANCH_NAME}-${build_tag}"
         }
-            }
+    }
         }
+		}
         stage('Maven') {
             steps {
                 echo "2.Maven Build Stage"
@@ -36,11 +39,11 @@ pipeline {
         stage('Deploy') {
 		steps {
         echo "6. Deploy Stage"
-		if (env.BRANCH_NAME == 'master') {
-            input "确认要部署线上环境吗？"
-			}
         sh "sed -i 's/<BUILD_TAG>/${build_tag}/' k8s.yaml"
         sh "sed -i 's/<BRANCH_NAME>/${env.BRANCH_NAME}/' k8s.yaml"
+		if (env.BRANCH_NAME == 'main') {
+            input "确认要部署线上环境吗？"
+			}
         sh 'kubectl apply -f k8s.yaml --record'
         }
     }
