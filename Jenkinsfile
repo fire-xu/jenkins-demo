@@ -43,7 +43,7 @@ pipeline {
         sh "sed -i 's/<BRANCH_NAME>/${env.BRANCH_NAME}/' k8s.yaml"
 		script {
 		if (env.BRANCH_NAME == 'main') {
-            input "确认要部署线上环境吗？"
+            input "确认要部署线上环境吗？？"
 			}
 		}
         }
