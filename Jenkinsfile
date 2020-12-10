@@ -1,5 +1,4 @@
 pipeline {
-<<<<<<< HEAD
     agent {
         label "haimaxy-jnlp"
     }
@@ -55,7 +54,6 @@ pipeline {
   }
 	}
 	}
-=======
   agent {
     label 'haimaxy-jnlp'
   }
@@ -109,4 +107,3 @@ pipeline {
 
   }
 }
->>>>>>> eebecef766d1344567f4361e3fee1143354ca931
