@@ -41,11 +41,6 @@ pipeline {
 			}
         sh "sed -i 's/<BUILD_TAG>/${build_tag}/' k8s.yaml"
         sh "sed -i 's/<BRANCH_NAME>/${env.BRANCH_NAME}/' k8s.yaml"
-        }
-		}
-        stage('Deploy') {
-		steps {
-        echo "7. Deploy To K8s Stage"
         sh 'kubectl apply -f k8s.yaml --record'
         }
     }
